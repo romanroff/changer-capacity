@@ -1,0 +1,28 @@
+[build-system] # Минимальные зависимости для сборки пакета
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+ 
+[project] # Основная информация о проекте
+name = "project"
+version = "0.0.1"
+description = "description"
+authors = [
+    {name = "Roman Bashirov", email = "bashiroff.roman@gmail.com"}
+]
+readme = "README.md"
+license = {text = "MIT"}  # или другой, например: "Apache-2.0", "GPL-3.0"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.10"  # минимальная версия Python
+# Зависимости проекта
+dependencies = [
+     "blocksnet==1.0.0.dev1",
+]
+
+[tool.setuptools.packages.find]
+# Автоматически находить пакеты в корне проекта
+where = ["."]
+include = ["changer_capacity"]  # можно указать шаблоны
