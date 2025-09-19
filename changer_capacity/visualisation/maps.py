@@ -35,12 +35,11 @@ def make_blocks_capacity(
 
     # --- нормализуем prov_old/new
     def _norm(df, prov_id_col):
-        out = df.copy()
         if prov_id_col is None:
-            out = out.rename_axis(id_col).reset_index()
+            df = df.rename_axis(id_col).reset_index()
         else:
-            out = out.rename(columns={prov_id_col: id_col})
-        return out
+            df = df.rename(columns={prov_id_col: id_col})
+        return df
 
     old = _norm(prov_df_old, prov_id_col_old)[[id_col, capacity_col]].rename(columns={capacity_col: "capacity_old"})
     new = _norm(prov_df_new, prov_id_col_new)[[id_col, capacity_col]].rename(columns={capacity_col: "capacity_new"})

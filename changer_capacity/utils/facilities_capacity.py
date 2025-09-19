@@ -255,20 +255,20 @@ def recompute(
     gb = prepare_blocks_with_demand(blocks_gdf, demand_per_1000=demand_per_1000, epsg=epsg)
 
     # 2) подготовить сервис: cap_type
-    gf0 = prepare_services_cap_types(service_gdf, base_count=base_count, epsg=epsg)
+    gf = prepare_services_cap_types(service_gdf, base_count=base_count, epsg=epsg)
 
     # 3) совпадения point↔polygon (оставляем полигоны)
-    gf1 = merge_points_into_polygons_keep_polys(gf0)
+    gf = merge_points_into_polygons_keep_polys(gf)
 
     # 4) санпин потолок
-    gf2 = add_sanpin_ceiling(gf1, m2_per_person=m2_per_person)
+    gf = add_sanpin_ceiling(gf, m2_per_person=m2_per_person)
 
     # 5) привязка к кварталам
-    gf3 = attach_blocks(gf2, gb)
+    gf = attach_blocks(gf, gb)
 
     # 6) cap_max
-    gf4 = add_cap_max(gf3)
+    gf = add_cap_max(gf)
 
     # 7) нелинейная аллокация относительно максимального спроса
-    out = allocate_relative_to_max(gf4, k=k)
+    out = allocate_relative_to_max(gf, k=k)
     return out

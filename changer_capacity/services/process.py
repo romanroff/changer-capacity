@@ -1,3 +1,5 @@
+import os
+import pandas as pd
 from ..utils.geometry import drop_points_inside_polygons
 from ..utils.facilities_capacity import recompute
 from blocksnet.preprocessing.imputing import impute_services
@@ -5,9 +7,9 @@ from blocksnet.blocks.aggregation import aggregate_objects
 from blocksnet.analysis.provision import competitive_provision
 from blocksnet.config import service_types_config
 
-SERVICES = ['school', 'kindergarten', 'hospital', 'polyclinic', 'pitch', 'swimming_pool', 'stadium', 'theatre', 'museum', 'cinema', 'mall', 'convenience', 'supermarket', 'cemetery', 'religion', 'market', 'university', 'playground', 'pharmacy', 'fuel', 'beach', 'train_building', 'bank', 'lawyer', 'cafe',
- 'subway_entrance', 'multifunctional_center', 'hairdresser', 'restaurant', 'bar', 'park', 'government', 'recruitment', 'hotel', 'zoo', 'circus', 'post', 'police', 'dog_park', 'hostel', 'bakery', 'parking', 'guest_house', 'reserve', 'sanatorium', 'embankment', 'machine_building_plant', 'brewery', 'woodworking_plant', 'oil_refinery', 'plant_of_building_materials', 'wastewater_plant', 'water_works', 'substation', 'train_station', 'bus_station',
- 'bus_stop', 'pier', 'animal_shelter', 'prison', 'landfill', 'plant_nursery', 'greenhouse_complex', 'warehouse', 'farmland', 'livestock', 'nursing_home', 'library', 'gallery', 'monastery', 'diplomatic', 'court_house', 'veterinary', 'notary', 'houseware', 'car_wash', 'golf_course', 'plant_gas_oil', 'railway_roundhouse', 'aeroway_terminal', 'crematorium']
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+default_json_path = os.path.join(BASE_DIR, "default", "default.json")
+SERVICES = pd.read_json(default_json_path).name.values
 
 def process(service_type: str, service, buildings_blocks, acc_mx, local_crs, demand_per_1000, base_count, m2_per_person, k):
     """
